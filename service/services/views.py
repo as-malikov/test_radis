@@ -1,6 +1,4 @@
 from django.db.models import Prefetch, F, Sum
-from django.shortcuts import render
-from django.template import response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from clients.models import Client
