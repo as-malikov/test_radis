@@ -19,16 +19,18 @@ class SubscriptionView(ReadOnlyModelViewSet):
         queryset = self.filter_queryset(self.get_queryset())
         response = super().list(request, *args, **kwargs)
 
-
         price_cache = cache.get(settings.PRICE_CACHE_NAME)
 
         if price_cache:
             total_price = price_cache
+            settings.DATA_TEG = 'DATA FROM CACHE'
         else:
             total_price = queryset.aggregate(total=Sum('price')).get('total')
-            cache.set(settings.PRICE_CACHE_NAME, total_price, 30)
+            cache.set(settings.PRICE_CACHE_NAME, total_price, 60 * 60)
+            settings.DATA_TEG = 'DATA FROM POSTGRESSQL'
 
         response_data = {'result': response.data}
         response_data['total_amount'] = total_price
+        response_data['DATA FROM'] = settings.DATA_TEG
         response.data = response_data
         return response
