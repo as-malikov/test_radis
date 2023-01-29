@@ -21,6 +21,7 @@ def set_price(subscription_id):
         subscription.price = subscription.annotated_price
         subscription.save()
     cache.delete(settings.PRICE_CACHE_NAME)
+    settings.DATA_TEG = 'POSTGRESSQL'
 
 @shared_task(base=Singleton)
 def set_comment(subscription_id):
@@ -31,3 +32,4 @@ def set_comment(subscription_id):
         subscription.date = str(datetime.datetime.now())
         subscription.save()
     cache.delete(settings.PRICE_CACHE_NAME)
+    settings.DATA_TEG = 'POSTGRESSQL'

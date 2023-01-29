@@ -23,11 +23,11 @@ class SubscriptionView(ReadOnlyModelViewSet):
 
         if price_cache:
             total_price = price_cache
-            settings.DATA_TEG = 'DATA FROM CACHE'
+            settings.DATA_TEG = 'CACHE'
         else:
             total_price = queryset.aggregate(total=Sum('price')).get('total')
-            cache.set(settings.PRICE_CACHE_NAME, total_price, 60 * 60)
-            settings.DATA_TEG = 'DATA FROM POSTGRESSQL'
+            cache.set(settings.PRICE_CACHE_NAME, total_price, 20)
+            settings.DATA_TEG = 'POSTGRESSQL'
 
         response_data = {'result': response.data}
         response_data['total_amount'] = total_price

@@ -161,4 +161,4 @@ CACHES = {
 
 PRICE_CACHE_NAME = 'price_cache'
 
-DATA_TEG = ''
+DATA_TEG = 'POSTGRESSQL'
